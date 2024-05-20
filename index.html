@@ -1,0 +1,226 @@
+<?php include "sendmail.php"; ?>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="text/javascript"
+      src="https://cdn.emailjs.com/dist/email.min.js"
+    ></script>
+    <title>Form Example</title>
+    <style>
+      /* Basic styling */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      form {
+        max-width: 500px;
+        width: 100%;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      .container {
+        background-color: #fff;
+        padding: 0;
+        border-radius: 8px;
+        box-shadow: none;
+        text-align: left;
+      }
+
+      .error {
+        color: red;
+        font-size: 12px;
+        visibility: hidden;
+      }
+
+      .modal {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #000;
+      }
+
+      .radio-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .radio-group label {
+        font-weight: normal;
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form id="myForm">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        autocomplete="name"
+        placeholder="Name"
+        value=""
+      />
+
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        placeholder="Email"
+        autocomplete="email"
+        value=""
+      />
+      <div class="container">
+        <label for="phone">Phone Number:</label>
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          placeholder="Phone Number: (123) 456-7890"
+          autocomplete="tel"
+          required
+          value=""
+        />
+        <small id="phoneError" class="error"></small>
+      </div>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="subscribeYes">Subscribe to newsletter?</label>
+      <div class="radio-group">
+        <input type="radio" id="subscribeYes" name="subscribe" value="yes" />
+        <label for="subscribeYes">Yes</label>
+        <input
+          type="radio"
+          id="subscribeNo"
+          name="subscribe"
+          value="no"
+          checked
+        />
+        <label for="subscribeNo">No</label>
+      </div>
+      <div class="container">
+        <label for="imgfile">Image File:</label>
+        <input
+          type="file"
+          id="imgfile"
+          name="imgfile"
+          required
+          placeholder="Image"
+          onchange="return imgfileValidation()"
+        />
+      </div>
+      <div class="container">
+        <label for="docfile">Doc File:</label>
+        <input
+          type="file"
+          id="docfile"
+          name="docfiles"
+          required
+          placeholder="Resume"
+          onchange="return pdffileValidation()"
+        />
+        <div id="imagePreview" style="width: 50px; height: auto"></div>
+      </div>
+      <input id="submt" type="submit" value="Submit" />
+    </form>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Form submitted successfully!</p>
+      </div>
+    </div>
+    <script src="mycode.js"></script>
+  </body>
+</html>
